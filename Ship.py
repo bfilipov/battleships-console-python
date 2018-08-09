@@ -60,10 +60,9 @@ class Ship:
 				y += 1
 
 		#check for collision
-		for y in tempY:
-			for x in tempX:
-				if self.Gameboard.invisibleGameboard[y][x] != " ":
-					collision = True
+		for i in range(shipLength):
+			if self.Gameboard.invisibleGameboard[tempY[i]][tempX[i]] != " ":
+				collision = True
 		
 		if not collision:
 			self._shipCoordinatesY = tempY

@@ -27,7 +27,6 @@ if __name__ == "__main__":
 			
 			gb.print_board(1)
 			if Ship.AliveShips<=0:
-				print( \
-					"Well done! You completed the game in {} shots" \
+				print("Well done! You completed the game in {} shots" \
 					.format(gb.hits))
 				break
