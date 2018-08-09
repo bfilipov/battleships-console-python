@@ -86,30 +86,30 @@ class TestShip(unittest.TestCase):
 		destroyer2 = Destroyer(gb)
 		destroyer2.place_ship_on_gameboard()
 
-		self.assertEqual(Ship.is_any_dead(gb),False)
+		self.assertEqual(Ship.is_any_dead(gb), False)
 
 		for i in range(battleship1.length):
 			gb.visibleGameboard \
 				[battleship1._shipCoordinatesY[i]] \
 				[battleship1._shipCoordinatesX[i]] = "X"
 
-		self.assertEqual(Ship.is_any_dead(gb),True)
-		self.assertEqual(Ship.is_any_dead(gb),False)
+		self.assertEqual(Ship.is_any_dead(gb), True)
+		self.assertEqual(Ship.is_any_dead(gb), False)
 
 		for i in range(destroyer1.length):
 			gb.visibleGameboard \
 				[destroyer1._shipCoordinatesY[i]] \
 				[destroyer1._shipCoordinatesX[i]] = "X"
 
-		self.assertEqual(Ship.is_any_dead(gb),True)
-		self.assertEqual(Ship.is_any_dead(gb),False)
+		self.assertEqual(Ship.is_any_dead(gb), True)
+		self.assertEqual(Ship.is_any_dead(gb), False)
 
 		for i in range(destroyer2.length):
 			gb.visibleGameboard \
 				[destroyer2._shipCoordinatesY[i]] \
 				[destroyer2._shipCoordinatesX[i]] = "X"
 
-		self.assertEqual(Ship.is_any_dead(gb),True)
-		self.assertEqual(Ship.is_any_dead(gb),False)
+		self.assertEqual(Ship.is_any_dead(gb), True)
+		self.assertEqual(Ship.is_any_dead(gb), False)
 
 
