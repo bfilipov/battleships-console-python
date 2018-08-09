@@ -2,34 +2,30 @@ from Gameboard import Gameboard
 from Ship import Ship, Battleship, Destroyer
 
 if __name__ == "__main__":
-
 	gb = Gameboard()
-
 	ships = [Battleship, Destroyer, Destroyer]
-
 	for ship in ships:
-		bs1 = ship(gb)
-		bs1.placeShipOnGameboard(gb, *bs1.getCoordinates())
+		ship(gb).place_ship_on_gameboard()
 
 	resultFromHit = ""
-	gb.printBoard(1)
+	gb.print_board(1)
 	while True:
 		inp = input("Enter coordinates (row, col), e.g. A5 = ")
 		if inp.lower() == "show":
-			gb.refreshScreen()
+			gb.refresh_screen()
 			print(" \n")
-			gb.printBoard(2)
+			gb.print_board(2)
 		else:
-			resultFromHit = gb.hitAndPrintResult(inp)
+			resultFromHit = gb.hit_and_get_result(inp)
 
-			if Ship.isDead(gb):
+			if Ship.is_any_dead(gb):
 				resultFromHit = "Sunk"
 
-			gb.refreshScreen()
+			gb.refresh_screen()
 			if resultFromHit != "":
 				print("*** {} *** \n".format(resultFromHit))
 			
-			gb.printBoard(1)
+			gb.print_board(1)
 			if Ship.AliveShips<=0:
 				print( \
 					"Well done! You completed the game in {} shots" \

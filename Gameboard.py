@@ -7,9 +7,9 @@ class Gameboard:
 	Attributes:
 		length (Optional [int]): The length of the gameboard. 
 			Currently length should not be changed.
-		_visibleGameboard (list): Nested list containing the 
+		visibleGameboard (list): Nested list containing the 
 			gameboard that will be displayed to the user.
-		_invisibleGameboard (list): Nested list containing 
+		invisibleGameboard (list): Nested list containing 
 			ships' locations. 
 		hits (int): Counter for the number of guesses the
 			user have made.
@@ -19,37 +19,34 @@ class Gameboard:
 			"F","G","H","I","J"
             ]
 	
-
-	def __init__(self,length=11):
+	def __init__(self):
 		"""Gameboard init method.
-
-		Args:
-			length (optional [int]): The length of the gameboard matrix.
-				In the current version of the game should not be changed.
+			
 		"""
-		self.length = length
-		self._visibleGameboard = [ [ "." for x in \
+		#In the current version of the game the gameboard has a fixed size of 11 squares.
+		self.length = 11
+		self.visibleGameboard = [ [ "." for x in \
 			range(self.length)]for y in range(self.length)]
-		self._invisibleGameboard = [ [ " " for x in \
+		self.invisibleGameboard = [ [ " " for x in \
 			range(self.length)]	for	y in range(self.length)]
 		self.hits = 0
 
 		for col in range(self.length):
 			for row in range(self.length):
 				if (col==0) and (row==0):
-					self._visibleGameboard[row][col] = " "
-					self._invisibleGameboard[row][col] = " "
+					self.visibleGameboard[row][col] = " "
+					self.invisibleGameboard[row][col] = " "
 				elif (col==0) and (row!=0):
-					self._invisibleGameboard[row][col] = \
+					self.invisibleGameboard[row][col] = \
 						Gameboard._letters[row-1]
-					self._visibleGameboard[row][col] = \
+					self.visibleGameboard[row][col] = \
 						Gameboard._letters[row-1]
 				elif (col!=0) and (row==0):
-					self._visibleGameboard[row][col] = col
-					self._invisibleGameboard[row][col] = col
+					self.visibleGameboard[row][col] = col
+					self.invisibleGameboard[row][col] = col
 
 	@staticmethod
-	def refreshScreen():
+	def refresh_screen():
 		"""Method that sets the clear command according to the 
 		operation system in use.
 		"""
@@ -58,19 +55,19 @@ class Gameboard:
 		else:
 			os.system('clear')
 
-	def printBoard(self, type):
-		"""Method that displays the _visibleGameboard
-		or _invisibleGameboard depending on the type
+	def print_board(self, type):
+		"""Method that displays the visibleGameboard
+		or invisibleGameboard depending on the type
 		argument.
 
 		Args:
-			type (int): 1 for _visibleGameboard, 
-				2 for _invisibleGameboard
+			type (int): 1 for visibleGameboard, 
+				2 for invisibleGameboard
 		"""
 		if type == 1:
-			boardToPrint = self._visibleGameboard
+			boardToPrint = self.visibleGameboard
 		elif type == 2:
-			boardToPrint = self._invisibleGameboard
+			boardToPrint = self.invisibleGameboard
 
 		for row in range(self.length):
 			currRow = ""
@@ -79,9 +76,9 @@ class Gameboard:
 						+ str(boardToPrint[row][col])
 			print(currRow)
 
-	def hitAndPrintResult(self, inputStr):
+	def hit_and_get_result(self, inputStr):
 		"""Method that parses the input from the console,
-		sets the result on the _visibleGameboard property and
+		sets the result on the visibleGameboard property and
 		returns the result from the operation.
 		
 		Args:
@@ -101,20 +98,18 @@ class Gameboard:
 		except:
 			x=0
 
-
-		
 		self.hits+=1
 		if (y > len(Gameboard._letters)) or \
            (x >= self.length) or y<1 or x<1:
 			message = "Error"
 		else:
-			if self._visibleGameboard[y][x] != ".":
+			if self.visibleGameboard[y][x] != ".":
 				message = "Miss"
 			else:
-				if self._invisibleGameboard[y][x] == "X":
+				if self.invisibleGameboard[y][x] == "X":
 					message = "Hit"
-					self._visibleGameboard[y][x] = "X"
+					self.visibleGameboard[y][x] = "X"
 				else:
 					message = "Miss"
-					self._visibleGameboard[y][x] = "-"
+					self.visibleGameboard[y][x] = "-"
 		return message
