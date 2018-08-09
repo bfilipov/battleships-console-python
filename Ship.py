@@ -79,10 +79,6 @@ class Ship:
 			Gameboard (Gameboard): The gameboard object for the 
 				ship to be placed on.
 		"""
-		#for col in range(1, self.Gameboard.length):
-		#	for row in range(1, self.Gameboard.length):
-		#		if (col in self._shipCoordinatesX) and (row in self._shipCoordinatesY):
-		#			self.Gameboard.invisibleGameboard[row][col] = "X"
 		for i in range(self.length):
 				self.Gameboard.invisibleGameboard \
 				[self._shipCoordinatesY[i]] \
