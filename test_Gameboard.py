@@ -1,10 +1,11 @@
 import unittest
 from Gameboard import Gameboard
 
-letters = [
-			"A","B","C","D","E",
-			"F","G","H","I","J"
-            ]
+letters = {
+	"A", "B", "C", "D", "E",
+	"F", "G", "H", "I", "J"
+}
+
 
 class TestGameboard(unittest.TestCase):
 
@@ -31,14 +32,13 @@ class TestGameboard(unittest.TestCase):
 		global letters 
 		gb = Gameboard()
 		for row in range(gb.length):
-			currRow = ""
+			curr_row = ""
 			for col in range(gb.length):
-				currRow = currRow + " " + str(gb.visibleGameboard[row][col])
-			if row==0:
-				self.assertEqual(currRow, "   1 2 3 4 5 6 7 8 9 10")
+				curr_row = curr_row + " " + str(gb.visibleGameboard[row][col])
+			if row == 0:
+				self.assertEqual(curr_row, "   1 2 3 4 5 6 7 8 9 10")
 			else:
-				self.assertEqual(currRow, " {} . . . . . . . . . .". \
-					format(letters[row-1]))
+				self.assertEqual(curr_row, " {} . . . . . . . . . .".format(letters[row-1]))
 
 	def test_hit_and_get_result(self):
 		gb1 = Gameboard()
@@ -76,4 +76,3 @@ class TestGameboard(unittest.TestCase):
 		self.assertEqual(gb1.hit_and_get_result("99999999999999999999999999"), "Error")
 
 		self.assertEqual(gb1.hit_and_get_result("A99999999999999999999999999"), "Error")
-		

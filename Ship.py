@@ -1,5 +1,6 @@
 import random
 
+
 class Ship:
 	"""Class to represent a ship that will be present on a gameboard.
 
@@ -30,7 +31,7 @@ class Ship:
 		Ship.ships.append(self)
 		Ship.AliveShips += 1
 
-	def _create_ship(self, shipLength):
+	def _create_ship(self, ship_length):
 		"""Method that will find possible ship coordinates
 		and set them in _shipCoordinatesY and _shipCoordinatesX
 
@@ -39,50 +40,43 @@ class Ship:
 			gameboard (Gameboard): The gameboard object for the ship to be
 				placed on.
 		"""
-		tempX = []
-		tempY = []
-		_shipOrientation = random.randint(0, 1)#0 1=horizontal; 0=vertical
+		temp_x = []
+		temp_y = []
+		_shipOrientation = random.randint(0, 1)  # 0 1=horizontal; 0=vertical
 		collision = False
 
 		if _shipOrientation:
-			x=random.randint(1, self.Gameboard.length-shipLength)
+			x=random.randint(1, self.Gameboard.length - ship_length)
 			y=random.randint(1, self.Gameboard.length-1)
-			for _ in range(shipLength):
-				tempX.append(x)
-				tempY.append(y)
+			for _ in range(ship_length):
+				temp_x.append(x)
+				temp_y.append(y)
 				x += 1
 		else:
 			x=random.randint(1, self.Gameboard.length-1)
-			y=random.randint(1, self.Gameboard.length-shipLength)
-			for _ in range(shipLength):
-				tempX.append(x)
-				tempY.append(y)
+			y=random.randint(1, self.Gameboard.length - ship_length)
+			for _ in range(ship_length):
+				temp_x.append(x)
+				temp_y.append(y)
 				y += 1
 
-		#check for collision
-		for i in range(shipLength):
-			if self.Gameboard.invisibleGameboard[tempY[i]][tempX[i]] != " ":
+		# check for collision
+		for i in range(ship_length):
+			if self.Gameboard.invisibleGameboard[temp_y[i]][temp_x[i]] != " ":
 				collision = True
 		
 		if not collision:
-			self._shipCoordinatesY = tempY
-			self._shipCoordinatesX = tempX
+			self._shipCoordinatesY = temp_y
+			self._shipCoordinatesX = temp_x
 		else:
 			self._create_ship(self.length)
 
 	def place_ship_on_gameboard(self):
 		"""Method that will place a ship on the gameboard object,
 		according to the Y and X coordinates passed in.
-
-		Args:
-			Gameboard (Gameboard): The gameboard object for the 
-				ship to be placed on.
 		"""
 		for i in range(self.length):
-				self.Gameboard.invisibleGameboard \
-				[self._shipCoordinatesY[i]] \
-				[self._shipCoordinatesX[i]] = "X"
-
+			self.Gameboard.invisibleGameboard[self._shipCoordinatesY[i]][self._shipCoordinatesX[i]] = "X"
 
 	@staticmethod
 	def is_any_dead(Gameboard):
@@ -96,19 +90,18 @@ class Ship:
 			Gameboard (Gameboard): Gameboard object to check for dead ships.
 		"""
 		for ship in Ship.ships:
-			hitCounter = 0
+			hit_counter = 0
 			if ship.alive:				
 				for i in range(ship.length):
-					if Gameboard.visibleGameboard \
-					[ship._shipCoordinatesY[i]] \
-					[ship._shipCoordinatesX[i]] == "X":
-						hitCounter += 1
+					if Gameboard.visibleGameboard[ship._shipCoordinatesY[i]][ship._shipCoordinatesX[i]] == "X":
+						hit_counter += 1
 
-				if hitCounter == ship.length:
+				if hit_counter == ship.length:
 					ship.alive = False
 					Ship.AliveShips -= 1
 					return True
 		return False
+
 
 class Destroyer(Ship):
 	"""Destroyer Class. 
@@ -124,7 +117,8 @@ class Destroyer(Ship):
 				placed on.
 		"""
 		Ship.__init__(self, 4, Gameboard)
-		
+
+
 class Battleship(Ship):
 	"""Battleship Class. 
 

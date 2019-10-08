@@ -1,5 +1,6 @@
 import random, os
 
+
 class Gameboard:
 	"""Class to represent the gameboard on which the
 		game will be played.
@@ -15,20 +16,18 @@ class Gameboard:
 			user have made.
 	""" 
 	_letters = [
-			"A","B","C","D","E",
-			"F","G","H","I","J"
-            ]
+			"A", "B", "C", "D", "E",
+			"F", "G", "H", "I", "J"
+	]
 	
 	def __init__(self):
 		"""Gameboard init method.
 			
 		"""
-		#In the current version of the game the gameboard has a fixed size of 11 squares.
+		# In the current version of the game the gameboard has a fixed size of 11 squares.
 		self.length = 11
-		self.visibleGameboard = [ [ "." for x in \
-			range(self.length)]for y in range(self.length)]
-		self.invisibleGameboard = [ [ " " for x in \
-			range(self.length)]	for	y in range(self.length)]
+		self.visibleGameboard = [["." for x in range(self.length)]for y in range(self.length)]
+		self.invisibleGameboard = [[" " for x in range(self.length)] for y in range(self.length)]
 		self.hits = 0
 
 		for col in range(self.length):
@@ -37,11 +36,9 @@ class Gameboard:
 					self.visibleGameboard[row][col] = " "
 					self.invisibleGameboard[row][col] = " "
 				elif (col==0) and (row!=0):
-					self.invisibleGameboard[row][col] = \
-						Gameboard._letters[row-1]
-					self.visibleGameboard[row][col] = \
-						Gameboard._letters[row-1]
-				elif (col!=0) and (row==0):
+					self.invisibleGameboard[row][col] = Gameboard._letters[row-1]
+					self.visibleGameboard[row][col] = Gameboard._letters[row-1]
+				elif (col != 0) and (row == 0):
 					self.visibleGameboard[row][col] = col
 					self.invisibleGameboard[row][col] = col
 
@@ -50,7 +47,7 @@ class Gameboard:
 		"""Method that sets the clear command according to the 
 		operation system in use.
 		"""
-		if os.name=='nt':
+		if os.name == 'nt':
 			os.system('cls')
 		else:
 			os.system('clear')
@@ -65,28 +62,27 @@ class Gameboard:
 				2 for invisibleGameboard
 		"""
 		if type == 1:
-			boardToPrint = self.visibleGameboard
-		elif type == 2:
-			boardToPrint = self.invisibleGameboard
+			board_to_print = self.visibleGameboard
+		else:
+			board_to_print = self.invisibleGameboard
 
 		for row in range(self.length):
-			currRow = ""
+			curr_row = ""
 			for col in range(self.length):
-				currRow = currRow + " " \
-						+ str(boardToPrint[row][col])
-			print(currRow)
+				curr_row = curr_row + " " + str(board_to_print[row][col])
+			print(curr_row)
 
-	def hit_and_get_result(self, inputStr):
+	def hit_and_get_result(self, input_str):
 		"""Method that parses the input from the console,
 		sets the result on the visibleGameboard property and
 		returns the result from the operation.
 		
 		Args:
-			inputStr (str): The input from user to be parsed.
+			input_str (str): The input from user to be parsed.
 		"""
 		y = 0
-		if len(inputStr) > 0:
-			y = inputStr[0].upper()
+		if len(input_str) > 0:
+			y = input_str[0].upper()
 
 		if y in Gameboard._letters:
 			y = Gameboard._letters.index(y)+1
@@ -94,13 +90,12 @@ class Gameboard:
 			y = 0
 
 		try:
-			x = int(inputStr[1:])
-		except:
-			x=0
+			x = int(input_str[1:])
+		except Error as e:
+			x = 0
 
-		self.hits+=1
-		if (y > len(Gameboard._letters)) or \
-           (x >= self.length) or y<1 or x<1:
+		self.hits += 1
+		if (y > len(Gameboard._letters)) or (x >= self.length) or y < 1 or x < 1:
 			message = "Error"
 		else:
 			if self.visibleGameboard[y][x] != ".":
