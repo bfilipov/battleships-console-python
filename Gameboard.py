@@ -91,7 +91,7 @@ class Gameboard:
 
 		try:
 			x = int(input_str[1:])
-		except Error as e:
+		except ValueError as e:
 			x = 0
 
 		self.hits += 1
